@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "app",
+    "external-services",
+]
+
+resolver = "3"

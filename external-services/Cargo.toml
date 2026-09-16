@@ -1,0 +1,9 @@
+[package]
+name = "external-services"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+reqwest = "0.13.5"
+tracing = "0.1.44"
+once_cell = "1.21.4"
