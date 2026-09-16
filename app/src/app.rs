@@ -11,7 +11,7 @@ pub fn app() -> Router {
             .route("/nothing", get(|| async { "Hello, World!" })));
 
     let external_routes = Router::new()
-        .nest("/ext_api/", Router::new()
+        .nest("/external-api", Router::new()
             .route("/login", get(spotify_login))
             .route("/callback/:provider", get(api_callback)));
     Router::new()

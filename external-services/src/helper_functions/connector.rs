@@ -25,20 +25,16 @@ pub struct Scope{
 
 pub enum AuthMethod {
     None,
-
     ApiKey {
         key: String,
     },
-
     Basic {
         username: String,
         password: String,
     },
-
     Bearer {
         token: String,
     },
-
     OAuth2 {
         client_id: String,
         client_secret: String,
@@ -46,21 +42,14 @@ pub enum AuthMethod {
 }
 
 impl Definition {
-    pub fn new(id: i32, name: String, base_url: String, auth_url: String, redirect_url: String)
-        -> Definition {
+    pub fn new(id: i32, name: String, base_url: String, auth_url: String, redirect_url: String
+    ) -> Definition {
         Self{ id, name, base_url, auth_url, redirect_url, }
     }
 }
 
-impl AuthMethod {
-
-}
-
 impl ApiConnection {
-    pub fn new(
-        definition: Definition,
-        auth_method: AuthMethod,
-        scope: Scope,
+    pub fn new(definition: Definition, auth_method: AuthMethod, scope: Scope,
     ) -> Self {
         let connector = Self {
             definition,
@@ -73,7 +62,8 @@ impl ApiConnection {
         connector
     }
 
-    pub fn get_auth_url(&self) -> String {
+    pub fn get_auth_url(&self
+    ) -> String {
         let mut url = Url::parse(&*self.definition.auth_url).unwrap();
 
         match &self.auth_method {
@@ -84,22 +74,10 @@ impl ApiConnection {
                     .append_pair("response_type", "code")
                     .append_pair("redirect_uri", &self.definition.redirect_url);
             }
-
-            AuthMethod::ApiKey { .. } => {
-
-            }
-
-            AuthMethod::Basic { .. } => {
-
-            }
-
-            AuthMethod::Bearer { .. } => {
-
-            }
-
-            AuthMethod::None => {
-                // ...
-            }
+            AuthMethod::ApiKey { .. } => {}
+            AuthMethod::Basic { .. } => {}
+            AuthMethod::Bearer { .. } => {}
+            AuthMethod::None => {}
         }
 
         url.as_str().to_string()

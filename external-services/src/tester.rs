@@ -8,7 +8,7 @@ pub async fn spotify_configuration() -> ApiConnection{
             "Spotify".to_string(),
             "https://accounts.spotify.com/api/".to_string(),
             "https://accounts.spotify.com/authorize".to_string(),
-            "http://127.0.0.1:3000/ext_api/callback/spotify".to_string(),
+            "http://127.0.0.1:3000/external-api/callback/spotify".to_string(),
         ),
         AuthMethod::OAuth2 {
             client_id: env::var("SPOTIFY_CLIENT_ID").unwrap(),
