@@ -1,6 +1,9 @@
 /// https://joshleeb.com/posts/rust-traitobjects.html
 use reqwest::{Client, Url};
 
+
+
+
 pub struct ApiConnection {
     pub definition: Definition,
     pub auth_method: AuthMethod,
@@ -64,22 +67,24 @@ impl ApiConnection {
 
     pub fn get_auth_url(&self
     ) -> String {
-        let mut url = Url::parse(&*self.definition.auth_url).unwrap();
-
         match &self.auth_method {
             AuthMethod::OAuth2 { client_id, .. } => {
-                url.query_pairs_mut()
-                    .append_pair("scope", &self.scope.scopes.join(" "))
-                    .append_pair("client_id", client_id)
-                    .append_pair("response_type", "code")
-                    .append_pair("redirect_uri", &self.definition.redirect_url);
-            }
-            AuthMethod::ApiKey { .. } => {}
-            AuthMethod::Basic { .. } => {}
-            AuthMethod::Bearer { .. } => {}
-            AuthMethod::None => {}
+                self.oauth2_auth_method(client_id).to_string() }
+            AuthMethod::ApiKey { .. } => {"".to_owned()}
+            AuthMethod::Basic { .. } => {"".to_owned()}
+            AuthMethod::Bearer { .. } => {"".to_owned()}
+            AuthMethod::None => {"".to_owned()}
         }
+    }
+    fn oauth2_auth_method(&self, client_id: &String) -> Url {
+        let mut url = Url::parse(&*self.definition.auth_url).unwrap();
 
-        url.as_str().to_string()
+        url.query_pairs_mut()
+            .append_pair("scope", &self.scope.scopes.join(" "))
+            .append_pair("client_id", client_id)
+            .append_pair("response_type", "code")
+            .append_pair("redirect_uri", &self.definition.redirect_url);
+
+        url
     }
 }

@@ -3,20 +3,11 @@ use axum::{
     routing::get,
 };
 use tower_http::trace::TraceLayer;
-use crate::tester::{api_callback, spotify_login, };
+use crate::routes::{app_routes, external_service_routes};
 
 pub fn app() -> Router {
-    let default_routes = Router::new()
-        .nest("/api", Router::new()
-            .route("/nothing", get(|| async { "Hello, World!" })));
-
-    let external_routes = Router::new()
-        .nest("/external-api", Router::new()
-            .route("/login", get(spotify_login))
-            .route("/callback/:provider", get(api_callback)));
     Router::new()
-        .route("/", get(|| async { "Hello, World!" }))
-            .merge(default_routes)
-            .merge(external_routes)
+        .merge(external_service_routes())
+        .merge(app_routes())
         .layer(TraceLayer::new_for_http())
 }
