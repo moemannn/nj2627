@@ -6,8 +6,8 @@ pub struct  ApiConnections{
 
 impl ApiConnections {
     pub fn new() -> Self { Self { list: <Vec<ApiConnection>>::new() } }
-    pub fn find_by_api_id(&self, api_definition: Definition) -> Option<&ApiConnection> {
-        self.list.iter().find(|item| item.definition.id == api_definition.id)
+    pub fn find_by_api_name(&self, api_definition: Definition) -> Option<&ApiConnection> {
+        self.list.iter().find(|item| item.definition.name == api_definition.name)
     }
 
 }
