@@ -1,7 +1,7 @@
 use std::env;
 use crate::{Definition, ApiConnection, AuthMethod};
 
-pub async fn configuration() -> ApiConnection {
+pub async fn spotify_configuration() -> ApiConnection {
     ApiConnection::new(
         Definition::new(
             "Spotify".to_string(),

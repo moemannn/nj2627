@@ -2,7 +2,7 @@ use std::env;
 use crate::{Definition, ApiConnection, AuthMethod};
 
 
-pub async fn configuration() -> ApiConnection {
+pub async fn github_configuration() -> ApiConnection {
     ApiConnection::new(
         Definition::new("Github".to_string(), None, None, None),
         AuthMethod::Bearer {
